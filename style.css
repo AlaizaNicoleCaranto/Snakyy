@@ -1,0 +1,174 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0a0f1e 0%, #0a1a2f 100%);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-shell {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.game-header h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #22d3ee, #f97316);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+}
+
+.game-area {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.game-panel {
+    background: rgba(7, 16, 31, 0.8);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.score-item {
+    text-align: center;
+    flex: 1;
+}
+
+.score-item .label {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.score-item strong {
+    font-size: 2rem;
+    color: #22d3ee;
+    font-weight: bold;
+}
+
+.board-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#gameBoard {
+    width: 100%;
+    height: auto;
+    max-width: 1000px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    background: #07101f;
+    cursor: pointer;
+}
+
+.controls {
+    text-align: center;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.controls p {
+    color: rgba(255, 255, 255, 0.6);
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive design */
+@media (max-width: 1100px) {
+    #gameBoard {
+        width: 100%;
+        height: auto;
+    }
+    
+    .board-frame {
+        overflow-x: auto;
+    }
+    
+    .score-item strong {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .game-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .game-panel {
+        padding: 15px;
+    }
+    
+    .scoreboard {
+        gap: 20px;
+    }
+    
+    .controls p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(34, 211, 238, 0.5);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 211, 238, 0.8);
+}

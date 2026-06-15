@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake ni Sir Baclle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-shell">
+        <header class="game-header">
+            <h1>Snake ni Sir Baclle</h1>
+            <p class="subtitle">Use the arrow keys to move the snake and collect food.</p>
+        </header>
+
+        <section class="game-area">
+            <div class="game-panel">
+                <div class="scoreboard">
+                    <div class="score-item">
+                        <span class="label">Score</span>
+                        <strong id="score">0</strong>
+                    </div>
+                    <div class="score-item">
+                        <span class="label">Level</span>
+                        <strong id="level">1</strong>
+                    </div>
+                </div>
+
+                <div class="board-frame">
+                    <canvas id="gameBoard" width="750" height="750" aria-label="Snake game board"></canvas>
+                </div>
+
+    <script src="snake.js"></script>
+</body>
+</html>
