@@ -5,7 +5,7 @@ foodImage.src = 'assets/food.png';
 
 const gridSize = 25;
 const cellSize = canvas.width / gridSize;
-const speed = 100;
+let speed = 100;
 
 let snake = [
     { x: 12, y: 12 },
@@ -20,6 +20,9 @@ let score = 0;
 let level = 1;
 let gameOver = false;
 let foodLoaded = false;
+
+// Difficulty selection 
+
 
 // New variables for special food
 let specialFood = null;
@@ -428,7 +431,23 @@ window.addEventListener('keydown', (event) => {
     }
 });
 
-window.addEventListener('load', () => {
+// Difficulty speeds (ms between updates — lower = faster)
+const difficultySettings = {
+    easy:   150,
+    medium: 100,
+    hard:    60
+};
+
+// This is called by the menu's Start button
+function startGame(difficulty) {
+    // 1. Set speed based on chosen difficulty
+    speed = difficultySettings[difficulty] || 100;
+
+    // 2. Hide the menu, show the game
+    document.getElementById('mainMenu').style.display = 'none';
+    document.getElementById('gameShell').style.display = 'block';
+
+    // 3. Set up the board and begin the loop
     placeFood();
     drawBoard();
     drawSnake();
@@ -437,4 +456,4 @@ window.addEventListener('load', () => {
         drawFood();
     }
     setInterval(update, speed);
-});
+}

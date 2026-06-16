@@ -1,35 +1,134 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake ni Sir Baclle</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="game-shell">
-        <header class="game-header">
-            <h1>Snake ni Sir Baclle</h1>
-            <p class="subtitle">Use the arrow keys to move the snake and collect food.</p>
-        </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elective Final Project | Snek</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-        <section class="game-area">
-            <div class="game-panel">
-                <div class="scoreboard">
-                    <div class="score-item">
-                        <span class="label">Score</span>
-                        <strong id="score">0</strong>
-                    </div>
-                    <div class="score-item">
-                        <span class="label">Level</span>
-                        <strong id="level">1</strong>
-                    </div>
-                </div>
+  <body>
+    <!-- MAIN MENU -->
+    <div class="game-menu" id="mainMenu">
+      <div class="menu-panel">
+        <h1 class="game-title">Snake</h1>
+        <p class="game-subtitle">ni Sir Baclle</p>
 
-                <div class="board-frame">
-                    <canvas id="gameBoard" width="750" height="750" aria-label="Snake game board"></canvas>
-                </div>
+        <!-- Screen: Main buttons -->
+        <div id="screen-main">
+          <button class="menu-btn" onclick="showScreen('screen-difficulty')">
+            Play Game
+          </button>
+          <button class="menu-btn" onclick="showScreen('screen-instructions')">
+            Instructions
+          </button>
+          <button class="menu-btn" onclick="showScreen('screen-credits')">
+            Credits
+          </button>
+        </div>
 
+        <!-- Screen: Difficulty -->
+        <div id="screen-difficulty" style="display: none">
+          <button class="back-btn" onclick="showScreen('screen-main')">
+            Back
+          </button>
+          <p class="screen-label">Choose Difficulty</p>
+          <button class="diff-btn" id="btn-easy" onclick="selectDiff('easy')">
+            Easy
+          </button>
+          <button
+            class="diff-btn"
+            id="btn-medium"
+            onclick="selectDiff('medium')"
+          >
+            Medium
+          </button>
+          <button class="diff-btn" id="btn-hard" onclick="selectDiff('hard')">
+            Hard
+          </button>
+          <button class="start-btn" onclick="launchGame()">Start Game</button>
+        </div>
+
+        <!-- Screen: Instructions -->
+        <div id="screen-instructions" style="display: none">
+          <button class="back-btn" onclick="showScreen('screen-main')">
+            Back
+          </button>
+          <p class="screen-label">How to Play</p>
+          <ul class="instr-list">
+            <li>Use Arrow keys to move</li>
+            <li>Eat food to grow and score points</li>
+            <li>Do not hit the walls or yourself</li>
+            <li>Gold food gives 2x points</li>
+            <li>Press Space to restart after game over</li>
+          </ul>
+        </div>
+
+        <!-- Screen: Credits -->
+        <div id="screen-credits" style="display: none">
+          <button class="back-btn" onclick="showScreen('screen-main')">
+            Back
+          </button>
+          <p class="screen-label">Credits</p>
+          <ul class="credits-list">
+            <li>
+              <span class="credit-role">Professor</span
+              ><span class="credit-name">Sir Baclle</span>
+            </li>
+            <li>
+              <span class="credit-role">Team Member</span
+              ><span class="credit-name">Buendicho</span>
+            </li>
+            <li>
+              <span class="credit-role">Team Member</span
+              ><span class="credit-name">Caranto</span>
+            </li>
+            <li>
+              <span class="credit-role">Team Member</span
+              ><span class="credit-name">Pua</span>
+            </li>
+            <li>
+              <span class="credit-role">School</span
+              ><span class="credit-name">PUP Calauan</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME SHELL -->
+    <div class="game-shell" id="gameShell" style="display: none">
+      <header class="game-header">
+        <h1>Snake ni Sir Baclle</h1>
+      </header>
+
+      <section class="game-area">
+        <div class="game-panel">
+          <div class="scoreboard">
+            <div class="score-item">
+              <span class="label">Score</span>
+              <strong id="score">0</strong>
+            </div>
+            <div class="score-item">
+              <span class="label">Level</span>
+              <strong id="level">1</strong>
+            </div>
+          </div>
+
+          <div class="board-frame">
+            <canvas
+              id="gameBoard"
+              width="750"
+              height="750"
+              aria-label="Snake game board"
+            ></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- snake.js first so startGame() exists before menu.js calls it -->
     <script src="snake.js"></script>
-</body>
+    <script src="menu.js"></script>
+  </body>
 </html>
