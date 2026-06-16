@@ -431,14 +431,14 @@ window.addEventListener('keydown', (event) => {
     }
 });
 
-// Difficulty speeds (ms between updates — lower = faster)
+// Difficulty speeds 
 const difficultySettings = {
     easy:   150,
     medium: 100,
     hard:    60
 };
 
-// This is called by the menu's Start button
+// called by the menu's Start button
 function startGame(difficulty) {
     // 1. Set speed based on chosen difficulty
     speed = difficultySettings[difficulty] || 100;
