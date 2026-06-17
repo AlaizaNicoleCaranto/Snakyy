@@ -37,7 +37,7 @@ let floorFoods = [];
 // How cramped each floor is. Higher = more wall blocks = less room.
 // Floor index 1 (shown to the player as "Floor 2") is the tightest,
 // per design — it is NOT a straight line with floor number.
-const floorDensity = [0, 20, 13, 16];
+const floorDensity = [25, 20, 13, 16];
 
 // Tracks which floors have already had their maze generated.
 // Floors are generated lazily — the first time the snake steps onto
@@ -189,9 +189,9 @@ function countReachableOpenCells(walls) {
 // keep that exact area clear — this is what stops walls from ever
 // spawning right in front of the snake's face.
 function buildFloorWalls(floorIndex, headX, headY, dir) {
-    if (floorIndex === 0) {
-        return new Set(); // ground floor: always fully open
-    }
+    // if (floorIndex === 0) {
+    //     return new Set(); // ground floor: always fully open
+    // }
 
     const blockCount = floorDensity[floorIndex] || 20;
     const totalOpenTarget = (gridSize * gridSize);
@@ -249,6 +249,9 @@ let specialFoodTimer = null;
 let specialFoodActive = false;
 let animationFrame = 0;
 let pulseDirection = 1;
+// Chance to spawn special food per floor (higher for lower floors)
+// Index 0 = Floor 1 (ground), index 1 = Floor 2, etc.
+const specialFoodChanceByFloor = [0.75, 0.50, 0.15, 0.08];
 
 // Wait for food image to load
 foodImage.onload = () => {
@@ -456,9 +459,9 @@ function spawnSpecialFood() {
     if (specialFoodTimer) clearTimeout(specialFoodTimer);
     if (specialFoodActive) return;
     
-    // 15% chance to spawn special food after each regular food eaten
-    const randomChance = Math.random();
-    if (randomChance < 0.15 && !gameOver) {
+    // Chance to spawn special food after each regular food eaten varies by floor
+    const chance = specialFoodChanceByFloor[currentFloor] ?? 0.15;
+    if (Math.random() < chance && !gameOver) {
         const occupied = new Set(snake.map(part => `${part.x},${part.y}`));
         const currentFood = floorFoods[currentFloor];
         if (currentFood) {
