@@ -106,6 +106,10 @@ body {
     font-weight: bold;
 }
 
+#floor {
+    color: #a78bfa;
+}
+
 .board-frame {
     display: flex;
     justify-content: center;

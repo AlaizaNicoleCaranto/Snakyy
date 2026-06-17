@@ -6,7 +6,6 @@ function showScreen(id) {
         'screen-difficulty',
         'screen-instructions',
         'screen-credits',
-        'screen-quit'
     ];
     screens.forEach(s => {
         document.getElementById(s).style.display = (s === id) ? 'block' : 'none';

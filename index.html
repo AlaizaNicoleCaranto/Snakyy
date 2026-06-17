@@ -58,6 +58,8 @@
             <li>Use Arrow keys to move</li>
             <li>Eat food to grow and score points</li>
             <li>Do not hit the walls or yourself</li>
+            <li>Press Space to move up a floor</li>
+            <li>Press Ctrl to move down a floor</li>
             <li>Gold food gives 2x points</li>
             <li>Press Space to restart after game over</li>
           </ul>
@@ -99,6 +101,7 @@
     <div class="game-shell" id="gameShell" style="display: none">
       <header class="game-header">
         <h1>Snake ni Sir Baclle</h1>
+        <p class="subtitle">Arrow keys to move - Space to go up a floor - Ctrl to go down a floor</p>
       </header>
 
       <section class="game-area">
@@ -112,6 +115,10 @@
               <span class="label">Level</span>
               <strong id="level">1</strong>
             </div>
+            <div class="score-item">
+              <span class="label">Floor</span>
+              <strong id="floor">1</strong>
+            </div>
           </div>
 
           <div class="board-frame">
@@ -124,7 +131,6 @@
           </div>
         </div>
       </section>
-    </div>
 
     <!-- snake.js first so startGame() exists before menu.js calls it -->
     <script src="snake.js"></script>
