@@ -102,6 +102,7 @@
       <header class="game-header">
         <h1>Snake ni Sir Baclle</h1>
         <p class="subtitle">Arrow keys to move - Space to go up a floor - Ctrl to go down a floor</p>
+        <button class="back-to-menu-btn" onclick="backToMenu()">Back to Menu</button>
       </header>
 
       <section class="game-area">
@@ -124,13 +125,17 @@
           <div class="board-frame">
             <canvas
               id="gameBoard"
-              width="430"
-              height="430"
+              width="600"
+              height="600"
               aria-label="Snake game board"
             ></canvas>
           </div>
         </div>
       </section>
+
+    <!-- Background music -->
+    <audio id="bgMusic" src="assets/Snake.mp3" loop preload="auto"></audio>
+    <button class="mute-btn" id="muteBtn" onclick="toggleMute()">🔊</button>
 
     <!-- snake.js first so startGame() exists before menu.js calls it -->
     <script src="snake.js"></script>

@@ -3,9 +3,52 @@ const ctx = canvas.getContext('2d');
 const foodImage = new Image();
 foodImage.src = 'assets/food.png';
 
-const gridSize = 25;
+// ===== BACKGROUND MUSIC =====
+const bgMusic = document.getElementById('bgMusic');
+bgMusic.volume = 0.4;
+let isMuted = false;
+
+function playMusic() {
+    if (isMuted) return;
+    // play() returns a promise that rejects if the browser blocked
+    // autoplay (no user gesture yet) - safe to ignore that case since
+    // a later interaction (clicking a menu button) will retry it
+    bgMusic.play().catch(() => {});
+}
+
+function pauseMusic() {
+    bgMusic.pause();
+}
+
+function toggleMute() {
+    isMuted = !isMuted;
+    const btn = document.getElementById('muteBtn');
+    if (isMuted) {
+        bgMusic.pause();
+        btn.textContent = '🔇';
+    } else {
+        btn.textContent = '🔊';
+        playMusic();
+    }
+}
+
+// Try to start music immediately on page load (covers the main menu).
+// Most browsers block audio with sound until the user has interacted
+// with the page at least once, so if this gets blocked we just retry
+// on the first click/keydown anywhere on the page.
+playMusic();
+function unlockMusicOnFirstInteraction() {
+    playMusic();
+    document.removeEventListener('click', unlockMusicOnFirstInteraction);
+    document.removeEventListener('keydown', unlockMusicOnFirstInteraction);
+}
+document.addEventListener('click', unlockMusicOnFirstInteraction);
+document.addEventListener('keydown', unlockMusicOnFirstInteraction);
+
+const gridSize = 35;
 const cellSize = canvas.width / gridSize;
 let speed = 100;
+let gameInterval = null;
 
 let snake = [
     { x: 12, y: 12 },
@@ -570,6 +613,7 @@ function update() {
 
     if (isCollision(newHead)) {
         gameOver = true;
+        pauseMusic();
         if (specialFoodTimer) clearTimeout(specialFoodTimer);
         drawBoard();
         drawSnake();
@@ -672,6 +716,7 @@ function restartGame() {
     drawFood();
     drawScore();
     drawFloorIndicator();
+    playMusic();
 }
 
 // Moves the snake up or down a floor. The x/y position stays the
@@ -710,9 +755,13 @@ function drawFloorIndicator() {
 }
 
 window.addEventListener('keydown', (event) => {
+    const scrollKeys = [' ', 'Space', 'Control', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+    if (scrollKeys.includes(event.key)) {
+        event.preventDefault();
+    }
+
     if (gameOver) {
         if (event.key === ' ' || event.key === 'Space') {
-            event.preventDefault();
             restartGame();
         }
         return;
@@ -720,14 +769,11 @@ window.addEventListener('keydown', (event) => {
 
     const key = event.key;
 
-    // Floor switching: Space = up a floor, Ctrl = down a floor
     if (key === ' ' || key === 'Space') {
-        event.preventDefault();
         changeFloor(1);
         return;
     }
     if (key === 'Control') {
-        event.preventDefault();
         changeFloor(-1);
         return;
     }
@@ -774,5 +820,30 @@ function startGame(difficulty) {
     if (foodLoaded && foodImage.complete) {
         drawFood();
     }
-    setInterval(update, speed);
+    gameInterval = setInterval(update, speed);
+    playMusic();
+}
+
+function backToMenu() {
+    clearInterval(gameInterval);
+    gameInterval = null;
+    gameOver = false;
+    snake = [
+        { x: 12, y: 12 },
+        { x: 11, y: 12 },
+        { x: 10, y: 12 },
+        { x: 9, y: 12 }
+    ];
+    direction = { x: 1, y: 0 };
+    nextDirection = { x: 1, y: 0 };
+    score = 0;
+    level = 1;
+    specialFoodActive = false;
+    specialFood = null;
+    currentFloor = 0;
+    if (specialFoodTimer) clearTimeout(specialFoodTimer);
+    resetFloors();
+    document.getElementById('gameShell').style.display = 'none';
+    document.getElementById('mainMenu').style.display = 'flex';
+    showScreen('screen-main');
 }
